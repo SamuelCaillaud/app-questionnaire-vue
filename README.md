@@ -22,3 +22,7 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## Etapes du projet
+23/10/2019 :
+Ajout de bootstrapvue et de pouch db
