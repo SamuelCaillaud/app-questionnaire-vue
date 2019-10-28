@@ -40,7 +40,10 @@
 <!--        </b-form-checkbox-group>-->
 <!--      </b-form-group>-->
 
-      <b-button type="submit" v-on:click="insertUser" variant="primary" to="/questionnaire">
+      <b-button
+        type="submit"
+        variant="primary"
+        @click="insertUser">
         Submit
       </b-button>
 <!--      <b-button type="reset" variant="danger">Reset</b-button>-->
@@ -53,11 +56,11 @@
 
 </template>
 <script>
-
-// eslint-disable-next-line import/extensions
 import PouchDB from 'pouchdb';
-// eslint-disable-next-line no-undef
+
 const db = new PouchDB('db-questionnaire');
+const shortid = require('shortid');
+
 export default {
   data() {
     return {
@@ -88,10 +91,12 @@ export default {
       });
     },
     insertUser() {
+      const id = shortid.generate();
       db.put({
+        _id: id,
         email: this.form.email,
         name: this.form.name,
-        age: this.form.companyName,
+        companyName: this.form.companyName,
       });
 
       // db.changes().on('change', () => {
@@ -99,6 +104,7 @@ export default {
       // });
 
       db.replicate.to('http://127.0.0.1:5984/db-questionnaire');
+      this.$router.push(`/questionnaire/${id}`);
     },
   },
 };
