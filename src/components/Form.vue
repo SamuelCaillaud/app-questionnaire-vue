@@ -1,38 +1,37 @@
 <template>
   <div>
-    <b-form @submit="insertUser" @reset="onReset" v-if="show">
-<!--      <b-form-group-->
-<!--        id="input-group-1"-->
-<!--        label="Email address:"-->
-<!--        label-for="input-1"-->
-<!--        description="We'll never share your email with anyone else."-->
-<!--      >-->
-<!--        <b-form-input-->
-<!--          id="input-1"-->
-<!--          v-model="form.email"-->
-<!--          type="email"-->
-<!--          required-->
-<!--          placeholder="Enter email"-->
-<!--        ></b-form-input>-->
-<!--      </b-form-group>-->
+    <b-container>
+    <b-form @reset="onReset" v-if="show">
+      <b-form-group
+        id="input-group-1"
+        label="Adresse Mail :"
+        label-for="input-1"
+      >
+        <b-form-input
+          id="input-1"
+          v-model="form.email"
+          type="email"
+          required
+          placeholder="Entrez votre email"
+        ></b-form-input>
+      </b-form-group>
 
-<!--      <b-form-group id="input-group-2" label="Your Name:" label-for="input-2">-->
-<!--        <b-form-input-->
-<!--          id="input-2"-->
-<!--          v-model="form.name"-->
-<!--          required-->
-<!--          placeholder="Enter name"-->
-<!--        ></b-form-input>-->
-<!--      </b-form-group>-->
+      <b-form-group id="input-group-2" label="Nom :" label-for="input-2">
+        <b-form-input
+          id="input-2"
+          v-model="form.name"
+          required
+          placeholder="Entrez votre nom"
+        ></b-form-input>
+      </b-form-group>
 
-<!--      <b-form-group id="input-group-3" label="Food:" label-for="input-3">-->
-<!--        <b-form-select-->
-<!--          id="input-3"-->
-<!--          v-model="form.food"-->
-<!--          :options="foods"-->
-<!--          required-->
-<!--        ></b-form-select>-->
-<!--      </b-form-group>-->
+      <b-form-group id="input-group-3" label="Entreprise :" label-for="input-3">
+        <b-form-input
+          id="input-3"
+          v-model="form.companyName"
+          required
+        ></b-form-input>
+      </b-form-group>
 
 <!--      <b-form-group id="input-group-4">-->
 <!--        <b-form-checkbox-group v-model="form.checked" id="checkboxes-4">-->
@@ -41,17 +40,23 @@
 <!--        </b-form-checkbox-group>-->
 <!--      </b-form-group>-->
 
-      <b-button type="submit" variant="primary">Submit</b-button>
+      <b-button type="submit" v-on:click="insertUser" variant="primary" to="/questionnaire">
+        Submit
+      </b-button>
 <!--      <b-button type="reset" variant="danger">Reset</b-button>-->
     </b-form>
+    </b-container>
   </div>
+<!--  <script src="https://cdn.jsdelivr.net/npm/pouchdb@7.0.0/dist/pouchdb.min.js"></script>-->
+<!--  <script src="../main.js"></script>-->
+<!--  <script src="../../node_modules/pouchdb/dist/pouchdb.min.js"></script>-->
+
 </template>
-
-<script src="https://cdn.jsdelivr.net/npm/pouchdb@7.0.0/dist/pouchdb.min.js"></script>
-<script src="js/main.js"></script>
-<script src="node_modules/pouchdb/dist/pouchdb.min.js"></script>
-
 <script>
+
+// eslint-disable-next-line import/extensions
+import PouchDB from 'pouchdb';
+// eslint-disable-next-line no-undef
 const db = new PouchDB('db-questionnaire');
 export default {
   data() {
@@ -59,16 +64,16 @@ export default {
       form: {
         email: '',
         name: '',
-        age: '',
+        companyName: '',
       },
       show: true,
     };
   },
   methods: {
-    onSubmit(evt) {
-      evt.preventDefault();
-      alert(JSON.stringify(this.form));
-    },
+    // onSubmit(evt) {
+    //   evt.preventDefault();
+    //   alert(JSON.stringify(this.form));
+    // },
     onReset(evt) {
       evt.preventDefault();
       // Reset our form values
@@ -84,11 +89,15 @@ export default {
     },
     insertUser() {
       db.put({
-        _id: 'daniel@gmail.com',
-        name: 'Daniel',
-        age: 19,
-        _rev: '1-989b8ec340554497de5326f1bc5b3826',
+        email: this.form.email,
+        name: this.form.name,
+        age: this.form.companyName,
       });
+
+      // db.changes().on('change', () => {
+      //   console.log('Ch-Ch-Changes');
+      // });
+
       db.replicate.to('http://127.0.0.1:5984/db-questionnaire');
     },
   },
