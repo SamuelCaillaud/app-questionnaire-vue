@@ -1,0 +1,29 @@
+{
+  "questions": [
+    {
+      "libelle": "Pourquoi la vie ?",
+      "reponse": "oui"
+    },
+    {
+      "libelle": "Pourquoi la mort ?",
+      "reponse": "non"
+    },
+    {
+      "libelle": "Commment tu vas ?",
+      "reponse": "jsp"
+    },
+    {
+      "libelle": "Pourquoi tu réponds à ces questions ?",
+      "reponse": "jsp"
+    },
+    {
+      "libelle": "T'as que ça à faire ?",
+      "reponse": "peutetre"
+    },
+    {
+      "libelle": "Qu'est ce que t'écoutes comme musique ?",
+      "reponse": "jsp"
+    }
+  ]
+}
+

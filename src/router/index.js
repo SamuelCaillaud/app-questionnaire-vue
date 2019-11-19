@@ -2,7 +2,9 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 // eslint-disable-next-line import/extensions
-import Questionnaire from '../components/Questionnaire';
+import Questionnaire from '../views/Questionnaire';
+// eslint-disable-next-line import/extensions
+import Resultats from '../views/Resultats';
 
 Vue.use(VueRouter);
 
@@ -24,6 +26,11 @@ const routes = [
     path: '/questionnaire/:idUser',
     name: 'questionnaire',
     component: Questionnaire,
+  },
+  {
+    path: '/resultat/:score',
+    name: 'resultat',
+    component: Resultats,
   },
 ];
 
